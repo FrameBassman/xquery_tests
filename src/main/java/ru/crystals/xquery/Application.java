@@ -5,23 +5,29 @@ import org.basex.core.cmd.Set;
 import org.basex.core.cmd.XQuery;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.Objects;
 
 public class Application {
     public static void main(String[] args) {
-        String configDir = "/home/d.romashov/projects/xquery_tests/home";
-        String scriptPath = "/home/d.romashov/projects/xquery_tests/src/main/resources/xq/update.xq";
-
         Application application = new Application();
-        application.runXQScript(configDir, scriptPath);
+        application.run();
+    }
+
+    private void run() {
+        String configDir = "/configs/d.romashov/projects/xquery_tests/home";
+        String scriptPath = "xq/update.xq";
+
+        runXQScript(configDir, scriptPath);
     }
 
     private void runXQScript(String homeDir, String scriptPath) {
         String currentHomeDir = System.getProperty("user.dir");
         try {
             System.setProperty("user.dir", new File(homeDir).getAbsolutePath());
-            String scriptContent = new String(Files.readAllBytes(Paths.get(scriptPath)));
+            String scriptContent = readResource(scriptPath);
             Context context = new Context();
             new Set("EXPORTER", "method=xml, version=1.0, omit-xml-declaration=no, indents=8").execute(context);
             new Set("INTPARSE", "true").execute(context);
@@ -30,6 +36,16 @@ public class Application {
         } catch (Exception e) {
             System.setProperty("user.dir", currentHomeDir);
             e.printStackTrace();
+        }
+    }
+
+    private String readResource(String resourcePath) throws IOException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        try {
+            File file = new File((Objects.requireNonNull(classLoader.getResource(resourcePath))).getFile());
+            return new String(Files.readAllBytes(file.toPath()));
+        } catch (NullPointerException exception) {
+            throw new FileNotFoundException(String.format("There is no resource with path: %s", resourcePath));
         }
     }
 }
