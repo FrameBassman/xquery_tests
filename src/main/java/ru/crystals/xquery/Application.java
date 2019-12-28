@@ -11,6 +11,12 @@ import java.nio.file.Files;
 import java.util.Objects;
 
 public class Application {
+    private ClassLoader classLoader;
+
+    public Application() {
+        classLoader = getClass().getClassLoader();
+    }
+
     public static void main(String[] args) {
         Application application = new Application();
         application.run();
@@ -40,7 +46,6 @@ public class Application {
     }
 
     private String readResource(String resourcePath) throws IOException {
-        ClassLoader classLoader = getClass().getClassLoader();
         try {
             File file = new File((Objects.requireNonNull(classLoader.getResource(resourcePath))).getFile());
             return new String(Files.readAllBytes(file.toPath()));
