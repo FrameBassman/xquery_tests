@@ -23,16 +23,16 @@ public class Application {
     }
 
     private void run() {
-        String configDir = "/configs/d.romashov/projects/xquery_tests/home";
+        String configDir = "configs";
         String scriptPath = "xq/update.xq";
 
         runXQScript(configDir, scriptPath);
     }
 
-    private void runXQScript(String homeDir, String scriptPath) {
+    private void runXQScript(String configsDir, String scriptPath) {
         String currentHomeDir = System.getProperty("user.dir");
         try {
-            System.setProperty("user.dir", new File(homeDir).getAbsolutePath());
+            System.setProperty("user.dir", classLoader.getResource(configsDir).getPath());
             String scriptContent = readResource(scriptPath);
             Context context = new Context();
             new Set("EXPORTER", "method=xml, version=1.0, omit-xml-declaration=no, indents=8").execute(context);
