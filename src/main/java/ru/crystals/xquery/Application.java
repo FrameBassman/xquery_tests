@@ -1,20 +1,17 @@
 package ru.crystals.xquery;
 
-import org.basex.core.Context;
-import org.basex.core.cmd.Set;
-import org.basex.core.cmd.XQuery;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.Objects;
+import ru.crystals.xquery.commands.ChangeHomeDirectory;
+import ru.crystals.xquery.commands.CommandsList;
+import ru.crystals.xquery.commands.RunXqScript;
 
 public class Application {
-    private ClassLoader classLoader;
+    private CommandsList commands;
 
     public Application() {
-        classLoader = getClass().getClassLoader();
+        commands = new CommandsList(
+                new ChangeHomeDirectory("configs"),
+                new RunXqScript("xq/update.xq")
+        );
     }
 
     public static void main(String[] args) {
@@ -23,34 +20,10 @@ public class Application {
     }
 
     private void run() {
-        String configDir = "configs";
-        String scriptPath = "xq/update.xq";
-
-        runXQScript(configDir, scriptPath);
-    }
-
-    private void runXQScript(String configsDir, String scriptPath) {
-        String currentHomeDir = System.getProperty("user.dir");
         try {
-            System.setProperty("user.dir", classLoader.getResource(configsDir).getPath());
-            String scriptContent = readResource(scriptPath);
-            Context context = new Context();
-            new Set("EXPORTER", "method=xml, version=1.0, omit-xml-declaration=no, indents=8").execute(context);
-            new Set("INTPARSE", "true").execute(context);
-            new Set("WRITEBACK", "true").execute(context);
-            new XQuery(scriptContent).execute(context);
+            commands.update();
         } catch (Exception e) {
-            System.setProperty("user.dir", currentHomeDir);
-            e.printStackTrace();
-        }
-    }
-
-    private String readResource(String resourcePath) throws IOException {
-        try {
-            File file = new File((Objects.requireNonNull(classLoader.getResource(resourcePath))).getFile());
-            return new String(Files.readAllBytes(file.toPath()));
-        } catch (NullPointerException exception) {
-            throw new FileNotFoundException(String.format("There is no resource with path: %s", resourcePath));
+            commands.restore();
         }
     }
 }
