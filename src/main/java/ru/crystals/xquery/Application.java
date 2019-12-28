@@ -23,6 +23,7 @@ public class Application {
         try {
             commands.update();
         } catch (Exception e) {
+            e.printStackTrace();
             commands.restore();
         }
     }
