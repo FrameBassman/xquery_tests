@@ -4,11 +4,10 @@ import org.basex.core.Context;
 import org.basex.core.cmd.Set;
 import org.basex.core.cmd.XQuery;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.Objects;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class RunXqScript extends ResourcesRelatedCommand {
     private String scriptPath;
@@ -33,11 +32,20 @@ public class RunXqScript extends ResourcesRelatedCommand {
     }
 
     private String readResource(String resourcePath) throws IOException {
-        try {
-            File file = new File((Objects.requireNonNull(classLoader.getResource(resourcePath))).getFile());
-            return new String(Files.readAllBytes(file.toPath()));
-        } catch (NullPointerException exception) {
-            throw new FileNotFoundException(String.format("There is no resource with path: %s", resourcePath));
+        ClassLoader classLoader = getClass().getClassLoader();
+        try (InputStream input = classLoader.getResourceAsStream(resourcePath)) {
+            if (input == null) {
+                throw new IOException("Cannot read from resource");
+            }
+            try (InputStreamReader reader = new InputStreamReader(input);
+                 BufferedReader br = new BufferedReader(reader)) {
+                String line;
+                StringBuilder content = new StringBuilder();
+                while ((line = br.readLine()) != null) {
+                    content.append(line);
+                }
+                return content.toString();
+            }
         }
     }
 }
