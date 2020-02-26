@@ -1,7 +1,7 @@
 declare namespace s = "java.lang.System";
 
 (: свойства, что собираемся переносить лежат в этом файле :)
-declare variable $propertiesFile := doc('/home/d.romashov/projects/XQueryTest/home/modules/visualization');
+declare variable $propertiesFile := doc('/home/d.romashov/projects/setretail10/SetRetail10_SCO/RobotSCO/configSCO/modules/visualization/visualization-system-config.xml');
 
 (: возвращает пароль доступа к БД SET :)
 declare function local:getPassword() as xs:string {

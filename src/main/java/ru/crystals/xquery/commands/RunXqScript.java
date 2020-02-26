@@ -23,7 +23,13 @@ public class RunXqScript extends ResourcesRelatedCommand {
         new Set("EXPORTER", "method=xml, version=1.0, omit-xml-declaration=no, indents=8").execute(context);
         new Set("INTPARSE", "true").execute(context);
         new Set("WRITEBACK", "true").execute(context);
-        new XQuery(scriptContent).execute(context);
+        String executingResult = "";
+        try {
+            executingResult = new XQuery(scriptContent).execute(context);
+        } finally {
+            System.out.println(executingResult);
+        }
+
     }
 
     @Override
