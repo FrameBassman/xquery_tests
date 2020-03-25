@@ -10,7 +10,8 @@ public class Application {
     public Application() {
         commands = new CommandsList(
                 new ChangeHomeDirectory("configs"),
-                new RunXqScript("xq/update_1.xq")
+                new RunXqScript("xq/xml_U_10.2.78.0_705.xq"),
+                new RunXqScript("xq/xml_U_10.2.78.0_706.xq")
         );
     }
 
