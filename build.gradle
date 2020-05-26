@@ -20,6 +20,4 @@ dependencies {
 task run(type:JavaExec) {
     main = 'ru.crystals.xquery.Application'
     classpath = sourceSets.main.runtimeClasspath
-//    systemProperty "serverIP", project.getProperties()["serverIP"]
-    setProperty("serverIP", project.getProperties()["serverIP"])
 }
