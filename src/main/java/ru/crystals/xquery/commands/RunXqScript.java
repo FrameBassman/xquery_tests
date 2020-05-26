@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class RunXqScript extends ResourcesRelatedCommand {
+public class RunXqScript extends Command {
     private String scriptPath;
 
     public RunXqScript(String scriptResourcePath) {
@@ -26,6 +26,8 @@ public class RunXqScript extends ResourcesRelatedCommand {
         String executingResult = "";
         try {
             executingResult = new XQuery(scriptContent).execute(context);
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             System.out.println(executingResult);
         }
@@ -48,7 +50,7 @@ public class RunXqScript extends ResourcesRelatedCommand {
                 String line;
                 StringBuilder content = new StringBuilder();
                 while ((line = br.readLine()) != null) {
-                    content.append(line);
+                    content.append(line).append(System.lineSeparator());
                 }
                 return content.toString();
             }
