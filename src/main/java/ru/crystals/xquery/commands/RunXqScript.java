@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class RunXqScript extends Command {
+public class RunXqScript extends ResourcesRelatedCommand {
     private String scriptPath;
 
     public RunXqScript(String scriptResourcePath) {
@@ -40,7 +40,6 @@ public class RunXqScript extends Command {
     }
 
     private String readResource(String resourcePath) throws IOException {
-        ClassLoader classLoader = getClass().getClassLoader();
         try (InputStream input = classLoader.getResourceAsStream(resourcePath)) {
             if (input == null) {
                 throw new IOException("Cannot read from resource");

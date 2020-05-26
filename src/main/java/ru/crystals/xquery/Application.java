@@ -2,7 +2,7 @@ package ru.crystals.xquery;
 
 import ru.crystals.xquery.commands.ChangeHomeDirectory;
 import ru.crystals.xquery.commands.CommandsList;
-import ru.crystals.xquery.commands.RunXqScript;
+import ru.crystals.xquery.commands.RunXqScripts;
 
 public class Application {
     private CommandsList commands;
@@ -10,7 +10,7 @@ public class Application {
     public Application() {
         commands = new CommandsList(
                 new ChangeHomeDirectory("config"),
-                new RunXqScript("xq/server-ip.xq")
+                new RunXqScripts()
         );
     }
 
