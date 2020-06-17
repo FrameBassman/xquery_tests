@@ -8,9 +8,10 @@ public class Application {
     private CommandsList commands;
 
     public Application() {
+        ConsoleLogger log = new ConsoleLogger();
         commands = new CommandsList(
-                new ChangeHomeDirectory("config"),
-                new RunXqScripts()
+                new ChangeHomeDirectory(log, "config"),
+                new RunXqScripts(log)
         );
     }
 

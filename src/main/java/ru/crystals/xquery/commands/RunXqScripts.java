@@ -1,5 +1,7 @@
 package ru.crystals.xquery.commands;
 
+import ru.crystals.xquery.ConsoleLogger;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -7,9 +9,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RunXqScripts extends ResourcesRelatedCommand {
+    private ConsoleLogger log;
     private String directoryPath;
 
-    public RunXqScripts() {
+    public RunXqScripts(ConsoleLogger logger) {
+        log = logger;
         directoryPath = "xq";
     }
 
@@ -18,7 +22,7 @@ public class RunXqScripts extends ResourcesRelatedCommand {
         List<Path> paths = Files.walk(Paths.get(classLoader.getResource(directoryPath).getPath()))
             .filter(file -> Files.isRegularFile(file)).collect(Collectors.toList());
         for (Path path : paths) {
-            RunXqScript run = new RunXqScript(toRelatedPath(path));
+            RunXqScript run = new RunXqScript(log, toRelatedPath(path));
             run.update();
         }
     }

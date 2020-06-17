@@ -3,6 +3,7 @@ package ru.crystals.xquery.commands;
 import org.basex.core.Context;
 import org.basex.core.cmd.Set;
 import org.basex.core.cmd.XQuery;
+import ru.crystals.xquery.ConsoleLogger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,9 +11,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class RunXqScript extends ResourcesRelatedCommand {
+    private ConsoleLogger log;
     private String scriptPath;
 
-    public RunXqScript(String scriptResourcePath) {
+    public RunXqScript(ConsoleLogger logger, String scriptResourcePath) {
+        log = logger;
         scriptPath = scriptResourcePath;
     }
 
@@ -27,9 +30,9 @@ public class RunXqScript extends ResourcesRelatedCommand {
         try {
             executingResult = new XQuery(scriptContent).execute(context);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getStackTrace());
         } finally {
-            System.out.println(executingResult);
+            log.info(executingResult);
         }
 
     }

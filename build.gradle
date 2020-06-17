@@ -17,7 +17,19 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
-task run(type:JavaExec) {
+task run(type: JavaExec) {
     main = 'ru.crystals.xquery.Application'
     classpath = sourceSets.main.runtimeClasspath
+}
+
+task setup() {
+    dependsOn build
+    def crystalCash = new File('src/main/resources/crystal-cash')
+    def xq = new File('src/main/resources/xq')
+    def directories = [crystalCash, xq]
+    directories.each {
+        if (!it.exists()) {
+            it.mkdirs()
+        }
+    }
 }
