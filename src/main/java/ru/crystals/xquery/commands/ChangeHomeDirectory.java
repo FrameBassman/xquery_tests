@@ -16,7 +16,9 @@ public class ChangeHomeDirectory extends ResourcesRelatedCommand {
     @Override
     public void update() {
         if (classLoader.getResource(currentResourcesPath) == null) {
-            log.info("");
+            String crystalCashPath = "src/main/resources/crystal-cash";
+            String xqPath = "src/main/resources/xq";
+            log.info(String.format("You should place cash configs in '%s' folder and your XQ files in '%s' directory.", crystalCashPath, xqPath));
         } else {
             System.setProperty("user.dir", classLoader.getResource(currentResourcesPath).getPath());
         }

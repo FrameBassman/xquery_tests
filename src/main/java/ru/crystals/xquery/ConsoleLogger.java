@@ -7,6 +7,10 @@ public class ConsoleLogger {
         System.out.println("INFO: " + message);
     }
 
+    public void error(String message) {
+        System.out.println("ERROR: " + message);
+    }
+
     public void error(StackTraceElement[] stackTrace) {
         System.out.println("ERROR: " + Arrays.toString(stackTrace));
     }
