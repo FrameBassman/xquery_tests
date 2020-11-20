@@ -3,6 +3,8 @@
 gradle
 build
 out
+gradlew
+gradlew.bat
 
 src/main/resources/config
 src/main/resources/config2
