@@ -10,7 +10,7 @@ public class Application {
     public Application() {
         ConsoleLogger log = new ConsoleLogger();
         commands = new CommandsList(
-                new ChangeHomeDirectory(log, "config"),
+                new ChangeHomeDirectory(log, "crystal-cash"),
                 new RunXqScripts(log)
         );
     }
