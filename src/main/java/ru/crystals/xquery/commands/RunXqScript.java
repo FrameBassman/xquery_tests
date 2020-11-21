@@ -23,14 +23,14 @@ public class RunXqScript extends ResourcesRelatedCommand {
     public void update() throws Exception {
         String scriptContent = readResource(scriptPath);
         Context context = new Context();
-        new Set("EXPORTER", "method=xml, version=1.0, omit-xml-declaration=no, indents=8").execute(context);
+        new Set("EXPORTER", "method=xml, version=1.0, omit-xml-declaration=no, indents=4").execute(context);
         new Set("INTPARSE", "true").execute(context);
         new Set("WRITEBACK", "true").execute(context);
         try {
             log.info(String.format("Start %s", scriptPath));
             new XQuery(scriptContent).execute(context);
         } catch (Exception e) {
-            log.error(e.getStackTrace());
+            log.error(e);
         } finally {
             log.info(String.format("Finish %s", scriptPath));
         }

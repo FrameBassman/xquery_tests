@@ -11,7 +11,8 @@ public class ConsoleLogger {
         System.out.println("ERROR: " + message);
     }
 
-    public void error(StackTraceElement[] stackTrace) {
-        System.out.println("ERROR: " + Arrays.toString(stackTrace));
+    public void error(Exception e) {
+        System.out.println("ERROR: " + e.getMessage());
+        e.printStackTrace();
     }
 }

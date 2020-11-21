@@ -1,0 +1,8 @@
+declare default element namespace 'http://www.springframework.org/schema/beans';
+
+for $x in doc('modules/informixBridge/informixBridge-system-config.xml')/beans
+return (
+    insert node <property name="returnFocusRequest" value="true"/> as last into $x/bean[@id = 'informixBridge'],
+    insert node <property name="returnFocusRequest" value="false"/> as last into $x/bean[@id = 'informixBridge'],
+    insert node <!--comment--> as last into $x/bean[@id = 'informixBridge']
+)
