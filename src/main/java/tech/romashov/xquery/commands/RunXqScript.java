@@ -13,16 +13,17 @@ import java.io.InputStreamReader;
 public class RunXqScript extends ResourcesRelatedCommand {
     private ConsoleLogger log;
     private String scriptPath;
+    private Context context;
 
     public RunXqScript(ConsoleLogger logger, String scriptResourcePath) {
         log = logger;
         scriptPath = scriptResourcePath;
+        context = new Context();
     }
 
     @Override
     public void update() throws Exception {
         String scriptContent = readResource(scriptPath);
-        Context context = new Context();
         new Set("EXPORTER", "method=xml, version=1.0, omit-xml-declaration=no, indents=4").execute(context);
         new Set("INTPARSE", "true").execute(context);
         new Set("WRITEBACK", "true").execute(context);
