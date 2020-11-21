@@ -1,13 +1,17 @@
 package tech.romashov.xquery;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tech.romashov.xquery.commands.ChangeHomeDirectory;
 import tech.romashov.xquery.commands.CommandsList;
 import tech.romashov.xquery.commands.RunXqScripts;
 
 public class Application {
     private CommandsList commands;
+    protected Logger logger = LoggerFactory.getLogger(Application.class);
 
     public Application() {
+        logger.info("this is message");
         ConsoleLogger log = new ConsoleLogger();
         commands = new CommandsList(
                 new ChangeHomeDirectory(log, "crystal-cash"),
