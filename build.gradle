@@ -21,7 +21,7 @@ dependencies {
 }
 
 task run(type: JavaExec) {
-    main = 'ru.crystals.xquery.Application'
+    main = 'tech.romashov.xquery.Application'
     classpath = sourceSets.main.runtimeClasspath
 }
 
