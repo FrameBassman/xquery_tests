@@ -1,4 +1,4 @@
-package ru.crystals.xquery;
+package tech.romashov.xquery;
 
 import java.util.Arrays;
 

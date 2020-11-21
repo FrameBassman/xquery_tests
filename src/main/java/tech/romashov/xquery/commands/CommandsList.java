@@ -1,4 +1,4 @@
-package ru.crystals.xquery.commands;
+package tech.romashov.xquery.commands;
 
 import java.util.Arrays;
 import java.util.Iterator;

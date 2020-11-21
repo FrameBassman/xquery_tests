@@ -1,6 +1,6 @@
-package ru.crystals.xquery.commands;
+package tech.romashov.xquery.commands;
 
-import ru.crystals.xquery.ConsoleLogger;
+import tech.romashov.xquery.ConsoleLogger;
 
 public class ChangeHomeDirectory extends ResourcesRelatedCommand {
     private ConsoleLogger log;

@@ -1,8 +1,8 @@
-package ru.crystals.xquery;
+package tech.romashov.xquery;
 
-import ru.crystals.xquery.commands.ChangeHomeDirectory;
-import ru.crystals.xquery.commands.CommandsList;
-import ru.crystals.xquery.commands.RunXqScripts;
+import tech.romashov.xquery.commands.ChangeHomeDirectory;
+import tech.romashov.xquery.commands.CommandsList;
+import tech.romashov.xquery.commands.RunXqScripts;
 
 public class Application {
     private CommandsList commands;

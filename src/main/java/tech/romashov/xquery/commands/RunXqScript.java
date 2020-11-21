@@ -1,9 +1,9 @@
-package ru.crystals.xquery.commands;
+package tech.romashov.xquery.commands;
 
 import org.basex.core.Context;
 import org.basex.core.cmd.Set;
 import org.basex.core.cmd.XQuery;
-import ru.crystals.xquery.ConsoleLogger;
+import tech.romashov.xquery.ConsoleLogger;
 
 import java.io.BufferedReader;
 import java.io.IOException;

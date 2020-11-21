@@ -1,4 +1,4 @@
-package ru.crystals.xquery.commands;
+package tech.romashov.xquery.commands;
 
 public abstract class ResourcesRelatedCommand extends Command {
     protected ClassLoader classLoader;
