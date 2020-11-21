@@ -1,18 +1,23 @@
 package tech.romashov.xquery;
 
-import java.util.Arrays;
+import org.slf4j.Logger;
 
 public class ConsoleLogger {
+    private final Logger logger;
+
+    public ConsoleLogger(Logger origin) {
+        logger = origin;
+    }
+
     public void info(String message) {
-        System.out.println("INFO: " + message);
+        logger.info(message);
     }
 
     public void error(String message) {
-        System.out.println("ERROR: " + message);
+        logger.error(message);
     }
 
     public void error(Exception e) {
-        System.out.println("ERROR: " + e.getMessage());
-        e.printStackTrace();
+        logger.error("Exception here:", e);
     }
 }

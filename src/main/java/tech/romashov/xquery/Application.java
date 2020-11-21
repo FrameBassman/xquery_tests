@@ -11,8 +11,7 @@ public class Application {
     protected Logger logger = LoggerFactory.getLogger(Application.class);
 
     public Application() {
-        logger.info("this is message");
-        ConsoleLogger log = new ConsoleLogger();
+        ConsoleLogger log = new ConsoleLogger(logger);
         commands = new CommandsList(
                 new ChangeHomeDirectory(log, "crystal-cash"),
                 new RunXqScripts(log)
