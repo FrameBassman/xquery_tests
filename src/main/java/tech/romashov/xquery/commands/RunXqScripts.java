@@ -7,23 +7,32 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RunXqScripts extends ResourcesRelatedCommand {
     private ConsoleLogger log;
     private String directoryPath;
+    private String fileExtension;
 
     public RunXqScripts(ConsoleLogger logger) {
         log = logger;
         directoryPath = "xq";
+        fileExtension = ".xq";
     }
 
     @Override
     public void update() throws Exception {
-        List<Path> paths = Files.walk(Paths.get(classLoader.getResource(directoryPath).getPath()))
-            .filter(file -> Files.isRegularFile(file)).collect(Collectors.toList());
-        for (Path path : paths) {
-            RunXqScript run = new RunXqScript(log, toRelatedPath(path));
-            run.update();
+        try (Stream<Path> walk = Files.walk(Paths.get(classLoader.getResource(directoryPath).getPath()))) {
+            List<Path> paths = walk
+                    .filter(file ->
+                            file.toString().endsWith(fileExtension)
+                                && Files.isRegularFile(file)
+                    )
+                    .collect(Collectors.toList());
+            for (Path path : paths) {
+                RunXqScript run = new RunXqScript(log, toRelatedPath(path));
+                run.update();
+            }
         }
     }
 
