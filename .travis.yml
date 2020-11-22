@@ -1,0 +1,27 @@
+jobs:
+  include:
+    - stage: test
+      language: java
+      dist: trusty
+      jdk: oraclejdk8
+      env:
+        - VERSION=5.6.4
+      before_cache:
+        - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+        - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+      cache:
+        directories:
+          - $HOME/.gradle/caches/
+          - $HOME/.gradle/wrapper/
+      install:
+        - gradle --version
+        - gradle assemble
+      script:
+        - gradle test --info
+stages:
+  - test
+branches:
+  only:
+    - /.*/
+notifications:
+  email: false
