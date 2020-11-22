@@ -5,11 +5,6 @@ import org.basex.core.cmd.Set;
 import org.basex.core.cmd.XQuery;
 import tech.romashov.xquery.ConsoleLogger;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 public class RunXqScript extends ResourcesRelatedCommand {
     private ConsoleLogger log;
     private String scriptPath;
@@ -41,22 +36,5 @@ public class RunXqScript extends ResourcesRelatedCommand {
     @Override
     public void restore() {
         // nothing
-    }
-
-    private String readResource(String resourcePath) throws IOException {
-        try (InputStream input = classLoader.getResourceAsStream(resourcePath)) {
-            if (input == null) {
-                throw new IOException("Cannot read from resource");
-            }
-            try (InputStreamReader reader = new InputStreamReader(input);
-                 BufferedReader br = new BufferedReader(reader)) {
-                String line;
-                StringBuilder content = new StringBuilder();
-                while ((line = br.readLine()) != null) {
-                    content.append(line).append(System.lineSeparator());
-                }
-                return content.toString();
-            }
-        }
     }
 }
