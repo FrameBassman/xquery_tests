@@ -13,9 +13,8 @@ public class CommandsList extends Command {
 
     @Override
     public void update() throws Exception {
-        Iterator<Command> iterator = origin.iterator();
-        while (iterator.hasNext()) {
-            iterator.next().update();
+        for (Command command : origin) {
+            command.update();
         }
     }
 

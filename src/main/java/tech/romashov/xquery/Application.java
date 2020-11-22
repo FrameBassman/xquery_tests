@@ -27,7 +27,7 @@ public class Application {
         try {
             commands.update();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception occurs on top level", e);
             commands.restore();
         }
     }
