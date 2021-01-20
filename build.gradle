@@ -34,6 +34,11 @@ task setup() {
     }
 }
 
+task deleteCrystalCash(type: Delete) {
+    logger.quiet("remove old crystal-cash")
+    delete files("${project.buildDir}/resources/main/crystal-cash")
+}
+
 task run(type: JavaExec) {
     dependsOn setup
     main = 'tech.romashov.xquery.Application'

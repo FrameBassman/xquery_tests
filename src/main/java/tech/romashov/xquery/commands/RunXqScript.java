@@ -24,7 +24,8 @@ public class RunXqScript extends ResourcesRelatedCommand {
         new Set("WRITEBACK", "true").execute(context);
         try {
             log.info(String.format("Start %s", scriptPath));
-            new XQuery(scriptContent).execute(context);
+            String output = new XQuery(scriptContent).execute(context);
+            log.info("\nOutput from XQuery:\n" + output);
         } catch (Exception e) {
             log.error(e);
         } finally {
