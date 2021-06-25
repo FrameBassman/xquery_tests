@@ -5,6 +5,7 @@ import tech.romashov.xquery.ConsoleLogger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -28,6 +29,10 @@ public class RunXqScripts extends ResourcesRelatedCommand {
                             file.toString().endsWith(fileExtension)
                                 && Files.isRegularFile(file)
                     )
+                    .sorted(Comparator.comparing(p -> {
+                        String name = p.getFileName().toString();
+                        return (name.contains("_U_") ? "0_" : "1_") + name;
+                    }))
                     .collect(Collectors.toList());
             for (Path path : paths) {
                 RunXqScript run = new RunXqScript(log, toRelatedPath(path));

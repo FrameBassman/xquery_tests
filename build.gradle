@@ -10,10 +10,11 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    maven { url 'http://files.basex.org/maven/' }
 }
 
 dependencies {
-    implementation group: 'org.basex', name: 'basex', version: '9.2.4'
+    implementation group: 'org.basex', name: 'basex', version: '8.4.4'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.9'
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.0-alpha1'
     implementation group: 'org.slf4j', name: 'slf4j-log4j12', version: '2.0.0-alpha1'
